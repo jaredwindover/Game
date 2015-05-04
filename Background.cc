@@ -45,20 +45,19 @@ Background::~Background(){
 
 void Background::draw(sf::RenderTarget& target,
 		      sf::RenderStates states) const{
+  dbgPrint(xi << "," << yi);
   for (int i = xi; i < xi + xn; i++){
     for (int j = yi; j < yi + yn; j++){
       sf::Sprite s = *sprites[tiles[(i + width) % width][(j + height) % height]];
       s.setPosition(sf::Vector2f(i*tileWidth + offsetX,
 				 j*tileHeight + offsetY));
+      target.draw(s);
 #ifdef DEBUG
       sf::RectangleShape r(sf::Vector2f(tileWidth,tileHeight));
       r.setPosition(s.getPosition());
       r.setOutlineThickness(3);
       r.setOutlineColor(sf::Color::Blue);
       r.setFillColor(sf::Color::Transparent);
-#endif
-      target.draw(s);
-#ifdef DEBUG
       target.draw(r);
 #endif
     }
@@ -79,6 +78,7 @@ void Background::update(){
   float yd = std::max(abs(A.y),abs(B.y));
   xi = floor((camera_center.x - xd - offsetX)/tileWidth);
   yi = floor((camera_center.y - yd - offsetY)/tileHeight);
+  dbgPrint(xi << "," << yi);
   xn = ceil(2*xd/tileWidth) + 1;
   yn = ceil(2*yd/tileHeight) + 1;
 }

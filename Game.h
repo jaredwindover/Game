@@ -11,13 +11,13 @@
 class Game{
 private:
   sf::RenderWindow window;
+  sf::View camera_view;
   Background background1;
   Background background2;
   Terrain asteroid;
   Player player;
   float framerate;
   sf::Color background_color;
-  sf::View camera_view;
   sf::Font debug_font;
 #ifdef DEBUG
   sf::View debug_view;

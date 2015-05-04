@@ -24,22 +24,7 @@ Player::~Player(){}
 
 void Player::draw(sf::RenderTarget& target,
 		  sf::RenderStates states) const{
-  //sf::CircleShape circ(10,20);
-  //circ.setPosition(circPos);
-  //circ.setOutlineColor(sf::Color::White);
-  //circ.setOutlineThickness(3);
-  //circ.setFillColor(sf::Color::White);
-  //circ.setOrigin(10,10);
-  //target.draw(circ);
-  //int n = terrain->getNormal(terrainIndex);
-  //sf::Vertex normal[] = {
-  //sf::Vertex(circPos),
-  //sf::Vertex(circPos +
-  //	       sf::Vector2f(30*cos(n*PI/180),
-  //			    30*sin(n*PI/180)))
-  //};
   target.draw(sprite);
-  //target.draw(normal,2,sf::Lines);
 }
 
 void Player::update(){

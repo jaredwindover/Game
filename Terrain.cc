@@ -50,17 +50,31 @@ Terrain::~Terrain(){}
 std::tuple<int,int> Terrain::moveAlong(int index,
 				       int curDist,
 				       int dist){
-  int d2Next; 
-  while (dist > 0){
-    d2Next = deltas[index];
-    if (curDist + dist < d2Next){
-      curDist += dist;
-      dist = 0;
-    } else {
-      dist -= d2Next;
-      index += 1;
-      index %= count;
-      curDist = 0;
+  int d2Next;
+  if (dist >= 0){
+    while (dist > 0){
+      d2Next = deltas[index];
+      if (curDist + dist < d2Next){
+	curDist += dist;
+	dist = 0;
+      } else {
+	dist -= d2Next;
+	index += 1;
+	index %= count;
+	curDist = 0;
+      }
+    }
+  } else {
+    while (dist < 0){
+      if (curDist > dist){
+	curDist += dist;
+	dist = 0;
+      } else {
+	dist += curDist;
+	index +=  count - 1;
+	index %= count;
+	curDist = deltas[index];
+      }
     }
   }
   return std::tuple<int,int>(index,curDist);
