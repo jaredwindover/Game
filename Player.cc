@@ -9,7 +9,8 @@
 
 Player::Player(std::string pFile):
   terrainIndex(0),
-  distanceToGo(0)
+  distanceToGo(0),
+  facing(RIGHT)
 {
   walking = true;
   std::ifstream f(pFile);
@@ -39,8 +40,10 @@ void Player::update(){
   sprite.setRotation(terrain->getNormal(terrainIndex) + 90);
 }
 
-void Player::setTerrain(Terrain *t){
+void Player::setTerrain(Terrain *t, int index, int dist){
   terrain  = t;
+  terrainIndex = index;
+  terrainDist = dist;
 }
 
 void Player::setIndex(int i){
@@ -53,4 +56,13 @@ void Player::setDistance(int d){
 
 void Player::move(int d){
   distanceToGo += d;
+}
+
+void Player::face(Direction d){
+  facing = d;
+  if (d == LEFT){
+    sprite.setTextureRect(sf::IntRect(width,0,-width,height));
+  } else {
+    sprite.setTextureRect(sf::IntRect(0,0,width,height));    
+  }
 }

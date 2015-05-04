@@ -85,9 +85,11 @@ void Game::update(sf::Time dt){
   }
   if (in_move_right){
     player.move(3);
+    player.face(RIGHT);
   }
   if (in_move_left){
     player.move(-3);
+    player.face(LEFT);
   }
   background1.update();
   background2.update();

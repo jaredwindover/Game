@@ -6,9 +6,12 @@
 
 #include "Terrain.h"
 
+enum Direction {LEFT, RIGHT};
+
 class Player: public sf::Drawable{
 private:
   bool walking;
+  Direction facing;
   Terrain * terrain;
   int terrainIndex;
   int terrainDist;
@@ -23,10 +26,11 @@ public:
   ~Player();
   virtual void draw(sf::RenderTarget&,sf::RenderStates) const;
   void update();
-  void setTerrain(Terrain *);
+  void setTerrain(Terrain *, int = 0, int = 0);
   void setIndex(int);
   void setDistance(int);
   void move(int);
+  void face(Direction);
 };
 
 #endif
