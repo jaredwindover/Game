@@ -1,0 +1,114 @@
+#!/bin/bash
+
+usage() {
+    echo "Usage: runSuite [OPTIONS] SUITE PROGRAM" >&2
+}
+if [ $# -lt 2 ]; then
+    echo "Too few arguments" >&2
+    usage
+    exit 2
+fi
+args=("$@")
+
+MEMCHECK=0
+VERBOSE=0
+DIFF=0
+
+for a in ${args[@]}; do
+    if [ "${a:0:1}" = "-" ]; then
+	if [ "$a" = "-m" ]; then
+	    MEMCHECK=1
+	elif [ "$a" = "-v" ]; then
+	    VERBOSE=1
+	elif [ "$a" = "-d" ]; then
+	    DIFF=1
+	fi
+    fi
+done
+
+SUITE=${args[(($#-2))]}
+PROGRAM=${args[(($#-1))]}
+
+##
+#echo "MEMCHECK: " $MEMCHECK
+#echo "VERBOSE: " $VERBOSE
+#echo "DIFF: " $DIFF
+#echo "SUITE: " $SUITE
+#echo "PROGRAM: " $PROGRAM
+#echo $args
+#
+#for ((i=0;i<$#;i++)); do
+#    echo ${args[(($i+1))]}
+#done
+##
+
+TMPFILE=`mktemp /tmp/runSuiteTemp.outXXXXXXXXX`
+SUMMARYTMPFILE=`mktemp /tmp/runSuiteTemp.outXXXXXXXXX`
+for stem in `cat $SUITE`; do
+    if [ ! -r $stem.in -o ! -r $stem.out ]; then
+	echo "File $stem.in or $stem.out does not exist or is not readable" >&2
+	rm $TMPFILE
+	exit 3
+    fi
+    if [ $VERBOSE -eq 1 ]; then
+	echo "Running Test: $stem" 
+    fi
+    if [ -r $stem.args ]; then
+	$PROGRAM `cat $stem.args` < "$stem".in > $TMPFILE
+    else
+	$PROGRAM  < "$stem".in > $TMPFILE
+    fi
+    if [ $VERBOSE -eq 1 ]; then
+	echo "Finished Test: $stem"
+    fi
+    diff $TMPFILE "$stem".out > /dev/null
+    if [ $? != 0 ]; then
+	if [ $VERBOSE -eq 1 ]; then
+	    echo "Test failed: $stem"
+	    echo "Input:"
+	    cat "$stem".in
+	fi
+       #echo "Expected:"
+       #cat "$stem".out
+       #echo "Actual:"
+       #cat $TMPFILE
+	if [ $DIFF -eq 1 ]; then
+	    diff -y $TMPFILE "$stem".out
+	fi
+	echo "Test $stem failed (incorrect)">>$SUMMARYTMPFILE
+    else
+	if [ $VERBOSE -eq 1 ]; then
+	    echo "Test Passed"
+	fi
+	if [ $MEMCHECK -eq 1 ]; then
+	    if [ $VERBOSE -eq 1 ]; then
+		echo "Performing Memory Test"
+	    fi
+	    valgrind --leak-check=full $PROGRAM < "$stem".in 2> $TMPFILE >/dev/null
+	    egrep "LEAK SUMMARY" $TMPFILE >/dev/null
+	    if  [ $? -eq 0 ]; then
+		if [ $VERBOSE -eq 1 ]; then
+		    echo "Memory leak found:"
+		    cat $TMPFILE
+		    echo "Memory Test Failed"
+		    echo "Input:"
+		    cat "$stem".in
+		fi
+		echo "Test $stem failed (memory leak)" >>$SUMMARYTMPFILE
+	    else
+		if [ $VERBOSE -eq 1 ]; then
+		    echo "Memory Test Passed"
+		fi
+	    fi
+	fi
+    fi
+done
+echo "//***********SUMMARY:***********\\\\"
+if [ -s $SUMMARYTMPFILE ]; then
+    cat $SUMMARYTMPFILE
+else
+    echo "||***********SUCCESS!***********||"
+fi
+echo "\\\\*********END SUMMARY**********//"
+rm $TMPFILE
+rm $SUMMARYTMPFILE

@@ -1,0 +1,17 @@
+256 256
+3
+resources/backgrounds/Space1.png
+resources/backgrounds/SpaceA.png
+resources/backgrounds/SpaceB.png
+10 10
+0 1 0 0 1 0 2 0 0 0
+0 2 0 0 1 0 2 0 0 0
+0 0 1 0 1 0 2 0 0 0
+0 0 0 0 1 0 2 0 0 0
+0 0 0 0 1 0 2 0 0 0
+0 0 0 0 1 0 2 0 0 0
+0 0 0 0 1 0 2 0 0 0
+0 0 0 0 1 0 2 0 0 0
+0 0 0 0 1 0 2 0 0 0
+0 0 0 0 1 0 2 0 0 0
+0.7
