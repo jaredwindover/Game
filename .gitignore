@@ -22,7 +22,17 @@
 *.a
 *.lib
 
+# Dependency Information
+*.d
+
 # Executables
 *.exe
 *.out
 *.app
+
+# Images
+*.png
+*.xcf
+
+# Fonts
+*.ttf

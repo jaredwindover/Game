@@ -1,6 +1,6 @@
 CXX		= g++
 CXXFLAGS	= -Wall -MMD -std=c++11
-EXEC		= runme
+EXEC		= runme.out
 OBJS 		= 	Background.o\
 			Game.o\
 			main.o\
@@ -21,7 +21,7 @@ LDFLAGS 	= -lsfml-system -lsfml-window -lsfml-graphics
 
 ifdef DEBUG
 CXXFLAGS	+= -g -O0 -DDEBUG
-EXEC		= runme-debug
+EXEC		= runme-debug.out
 SUITEFLAGS	+= -v -d
 OBJECTS		= ${DOBJS}
 else
