@@ -42,7 +42,7 @@ Game::Game():
   s_paused           (false)
 {
   player.setTerrain(&asteroid);
-  debug_font.loadFromFile("resources/fonts/Oxygen-Sans.ttf");
+  debug_font.loadFromFile("res/fonts/Oxygen-Sans.ttf");
   camera_view.setViewport(sf::FloatRect(0,0,1,1));
 #ifdef DEBUG
   debug_view.setViewport(sf::FloatRect(0,0,1,1));
