@@ -19,10 +19,10 @@ Game::Game():
 	 sf::Style::Resize ^
 	 sf::Style::Titlebar),
   camera_view(sf::FloatRect(0,0,800,600)),
-  background1("resources/backgrounds/defaultBackgroundA",camera_view),
-  background2("resources/backgrounds/defaultBackgroundB",camera_view),
-  asteroid   ("resources/terrain/AsteroidTerrain"),
-  player     ("resources/players/defaultPlayer"),
+  background1("res/backgrounds/defaultBackgroundA",camera_view),
+  background2("res/backgrounds/defaultBackgroundB",camera_view),
+  asteroid   ("res/terrain/AsteroidTerrain"),
+  player     ("res/players/defaultPlayer"),
   framerate(0),
   background_color(sf::Color::Black),
 #ifdef DEBUG

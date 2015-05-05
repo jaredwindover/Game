@@ -1,9 +1,9 @@
 256 256
 4
-resources/backgrounds/Blank.png
-resources/backgrounds/Space1.png
-resources/backgrounds/SpaceA.png
-resources/backgrounds/SpaceB.png
+res/backgrounds/Blank.png
+res/backgrounds/Space1.png
+res/backgrounds/SpaceA.png
+res/backgrounds/SpaceB.png
 10 10
 0 0 0 0 0 0 0 0 0 0
 0 1 0 0 0 0 0 0 0 0

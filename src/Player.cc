@@ -8,9 +8,9 @@
 #include "Utility.h"
 
 Player::Player(std::string pFile):
+  facing(RIGHT),
   terrainIndex(0),
-  distanceToGo(0),
-  facing(RIGHT)
+  distanceToGo(0)
 {
   walking = true;
   std::ifstream f(pFile);
