@@ -94,8 +94,16 @@ void Game::update(sf::Time dt){
   background1.update();
   background2.update();
   player.update();
+  updateCamera();
 }
 
+void Game::updateCamera(){
+  camera_view.setCenter(player.getPosition());
+  camera_view.setRotation(player.getRotation());
+#ifndef DEBUG
+  window.setView(camera_view);
+#endif
+}
 
 void Game::pauseUpdate(){
   if (in_pause){
@@ -194,28 +202,28 @@ void Game::processEvents(){
 void Game::handleKeyboard(sf::Keyboard::Key k, bool b){
   switch (k){
   case sf::Keyboard::Left:
-    in_left = b;
-    break;
-  case sf::Keyboard::Right:
-    in_right = b;
-    break;
-  case sf::Keyboard::Up:
-    in_up = b;
-    break;
-  case sf::Keyboard::Down:
-    in_down = b;
-    break;
-  case sf::Keyboard::Space:
-    in_jump = b;
-    break;
-  case sf::Keyboard::A:
-    //in_left_rotate = b;
     in_move_left = b;
     break;
-  case sf::Keyboard::D:
-    //in_right_rotate = b;
+  case sf::Keyboard::Right:
     in_move_right = b;
     break;
+  //case sf::Keyboard::Up:
+  //  in_up = b;
+  //  break;
+  //case sf::Keyboard::Down:
+  //  in_down = b;
+  //  break;
+  //case sf::Keyboard::Space:
+  //  in_jump = b;
+  //  break;
+  //case sf::Keyboard::A:
+  //  //in_left_rotate = b;
+  //  in_move_left = b;
+  //  break;
+  //case sf::Keyboard::D:
+  //  //in_right_rotate = b;
+  //  in_move_right = b;
+  //  break;
   case sf::Keyboard::P:
     in_pause = b;
     break;

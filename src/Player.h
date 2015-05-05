@@ -31,6 +31,8 @@ public:
   void setDistance(int);
   void move(int);
   void face(Direction);
+  sf::Vector2f getPosition();
+  float getRotation();
 };
 
 #endif

@@ -38,6 +38,7 @@ private:
 
   void moveCamera(int,int);
   void rotateCamera(int);
+  void updateCamera();
 protected:
 public:
   Game();

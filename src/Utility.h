@@ -6,8 +6,20 @@
 #define PI 3.14159265
 
 #ifdef DEBUG
-#define dbgPrint(note) std::cout << note << std::endl << std::flush
-#define dbgError(note) std::cerr << note << std::endl << std::flush
+#define dbgPrint(note) \
+  std::cout	       \
+  << __FILE__	       \
+  << " : "	       \
+  << note	       \
+  << std::endl	       \
+  << std::flush
+#define dbgError(note) \
+  std::cerr	       \
+  << __FILE__	       \
+  << " : "	       \
+  << note	       \
+  << std::endl	       \
+  << std::flush
 #else
 #define dbgPrint(note)
 #define dbgError(note)

@@ -1,6 +1,6 @@
 1024 1024
 res/terrain/Asteroid1.png
-34
+33
 330 133
 518 114
 623 152
@@ -34,4 +34,5 @@ res/terrain/Asteroid1.png
 496 307
 392 263
 330 202
-330 133
+
+#Don't include the first point

@@ -35,6 +35,7 @@ void Player::update(){
   terrainIndex = std::get<0>(result);
   terrainDist =std::get<1>(result);
   sf::Vector2f circPos = terrain->getPosition(terrainIndex,terrainDist);
+  dbgPrint(circPos.x << "," << circPos.y);
   sprite.setOrigin(width/2,height);
   sprite.setPosition(circPos);
   sprite.setRotation(terrain->getNormal(terrainIndex) + 90);
@@ -65,4 +66,12 @@ void Player::face(Direction d){
   } else {
     sprite.setTextureRect(sf::IntRect(0,0,width,height));    
   }
+}
+
+sf::Vector2f Player::getPosition(){
+  return sprite.getPosition();
+}
+
+float Player::getRotation(){
+  return sprite.getRotation();
 }
